@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<title>CUJU</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-linux,.fa-coffee {font-size:200px}
+li.L0, li.L1, li.L2, li.L3,
+li.L5, li.L6, li.L7, li.L8 {
+  list-style-type: decimal !important;
+}
+</style>
+
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-dark-grey w3-card-4 w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="home.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
+    <a href="download.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Download</a>
+    <a href="" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Document</a>
+    <a href="http://google.com" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contact</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+  </div>
+</div>
+
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Environment and Network Topology</h1>
+      
+      <ul>
+        <li>All 3 nodes install Ubuntu-12.04.1</li>
+        <li>Add	no password	in	node 1&2</li>
+        <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ sudo apt-get update</li>
+        <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ sudo apt-get	install	vim	gcc	make	gdb	fakeroot	build-essential	kernel-package	
+            libncurses5	libncurses5-dev	zlib1g-dev	libglib2.0-dev	qemu	xorg	bridge-utils	
+            openvpn	vncviewer</li>
+        <li>Install Linux Kernel 3.5.0(disable following items in menuconfig):</li>
+        <ul style="list-style-type:square">
+          <li style="color:lightslategray; font-style:oblique; font-weight:bold;">[         ]X86 PAT support (Processor type and features)</li>
+          <li style="color:lightslategray; font-style:oblique; font-weight:bold;">[         ]Filter access to /dev/mem (Kernel hacking)</li>
+        </ul>
+        <li>Set up NFS</li>
+        <li>Edit <span stype="color:lightslategray; font-style:oblique; font-weight:bold;">/etc/qemu-ifup</span>  &  /etc/qemu-ifdown in both node 1&2 as follow to avoid using it :</li>
+        <pre class="prettyprint linenums"> #!/bin/sh
+ exit
+ ...
+        </pre>
+        <li>TODO: network interface</li>
+        <li>Compile CUJU on all 3 nodes:</li>
+        <ul style="list-style-type:circle">
+          <li>QEMU</li>
+          <ul style="list-style-type:square">
+            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ cd $PATH_OF_YOUR_CUJU/</li>
+            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ ./configure --disable-pie --enable-kvm</li>
+            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ make clean</li>
+            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ make -j8/</li>
+          </ul>
+          <li>KVM</li>
+          <ul style="list-style-type:square">
+            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ cd $PATH_OF_YOUR_CUJU/kvm</li>
+            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ ./configure</li>
+            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ make clean</li>
+            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ make -j8/</li>
+          </ul>
+      </ul>
+    </div>
+
+    <div class="w3-third w3-right">
+      <img src="topology.png" alt="Topology" style="width:150%">
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+      <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i>
+    </div>
+
+    <div class="w3-twothird">
+      <h1>Using CUJU</h1>
+      <h5>Testing Steps :</h5>
+      <ol>
+        <li> Before you launch any VM in node, run pre.sh</li>
+        <li> execute ./run_ft in node1 to boot the VM</li>
+        <li> execute boot.sh or vncviewer:5900 in node1 to fix VM stuck at booting stage.</li>
+        <li> execute ./recv in node2 to boot the backup VM</li>
+        <li> execute ./ftmode.sh in node1 to enter FT mode </li>
+        <li> enter the VM in node1 and ping 8.8.8.8</li>
+        <li> Kill the VM in node1</li>
+        <li> execute vncviewer:5900 in node2 to check if the ping action is still alive or not</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">Quote of the day: live life</h1>
+</div>
+

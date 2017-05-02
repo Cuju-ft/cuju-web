@@ -13,10 +13,14 @@
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-.fa-linux,.fa-coffee {font-size:200px}
+.fa-coffee {font-size:200px}
 li.L0, li.L1, li.L2, li.L3,
 li.L5, li.L6, li.L7, li.L8 {
   list-style-type: decimal !important;
+}
+a:hover {
+    color: red;
+    background-color: transparent;
 }
 </style>
 
@@ -28,8 +32,8 @@ li.L5, li.L6, li.L7, li.L8 {
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding-large w3-hover-white">Home</a>
     <a href="download.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Download</a>
-    <a href="" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Document</a>
-    <a href="http://google.com" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contact</a>
+    <a href="document.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Document</a>
+    <a href="contact.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contact</a>
   </div>
 
   <!-- Navbar on small screens -->
@@ -59,13 +63,13 @@ li.L5, li.L6, li.L7, li.L8 {
           <li style="color:lightslategray; font-style:oblique; font-weight:bold;">[         ]X86 PAT support (Processor type and features)</li>
           <li style="color:lightslategray; font-style:oblique; font-weight:bold;">[         ]Filter access to /dev/mem (Kernel hacking)</li>
         </ul>
-        <li>Set up NFS</li>
+        <li>Set up iptable and network forwarding to allow all 3 nodes connecting to Internet.</li>
+        <li>Set up NFS.</li>
         <li>Edit <span stype="color:lightslategray; font-style:oblique; font-weight:bold;">/etc/qemu-ifup</span>  &  /etc/qemu-ifdown in both node 1&2 as follow to avoid using it :</li>
         <pre class="prettyprint linenums"> #!/bin/sh
  exit
  ...
         </pre>
-        <li>TODO: network interface</li>
         <li>Compile CUJU on all 3 nodes:</li>
         <ul style="list-style-type:circle">
           <li>QEMU</li>
@@ -104,20 +108,25 @@ li.L5, li.L6, li.L7, li.L8 {
       <h1>Using CUJU</h1>
       <h5>Testing Steps :</h5>
       <ol>
-        <li> Before you launch any VM in node, run pre.sh</li>
-        <li> execute ./run_ft in node1 to boot the VM</li>
-        <li> execute boot.sh or vncviewer:5900 in node1 to fix VM stuck at booting stage.</li>
-        <li> execute ./recv in node2 to boot the backup VM</li>
-        <li> execute ./ftmode.sh in node1 to enter FT mode </li>
+        <li> Before you launch VM in any node, run pre.sh</li>
+        <li> execute ./run_ft in node1 to boot the VM.</li>
+        <li> execute boot.sh or vncviewer: 5900 in node1 to fix VM stuck at booting stage.</li>
+        <li> execute ./recv in node2 to boot the backup VM.</li>
+        <li> execute ./ftmode.sh in node1 to enter FT mode. </li>
         <li> enter the VM in node1 and ping 8.8.8.8</li>
-        <li> Kill the VM in node1</li>
-        <li> execute vncviewer:5900 in node2 to check if the ping action is still alive or not</li>
+        <li> Kill the VM in node1.</li>
+        <li> execute vncviewer:5900 in node2 to check if the ping action is still alive or not.</li>
       </ol>
+      <ul>
+        <li style="color:red; font-weight:bold;">You can find the mentioned scripts in the download section.</li>
+      </ul>
     </div>
   </div>
 </div>
 
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-    <h1 class="w3-margin w3-xlarge">Quote of the day: live life</h1>
+<div class="w3-container w3-center w3-black w3-opacity w3-padding-64">
+      <i class="fa fa-flask" style="font-size:60px;"></i>
+      <br>
+      <a href="https://hackmd.io/OwFgbARsCGYAwFoQFMwBMkGZ4IBwQDNcEI4CAmOZAY2DQmVyA===?view" target="_blank">Experiment Results</a>
 </div>
 

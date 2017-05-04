@@ -44,14 +44,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
-      <h1>QEMU</h1>
-      <h5 class="w3-padding-32">QEMU is a generic and open source machine emulator and virtualizer.</h5>
+      <h1>CUJU</h1>
+      <h5 class="w3-padding-32">CUJU is a virtualization-based fault tolerance using epoch-based synchronization.</h5>
 
-      <p class="w3-text-grey">QEMU (short for Quick Emulator) is a free and open-source hosted hypervisor that performs hardware virtualization (not to be confused with hardware-assisted virtualization).
-        QEMU is a hosted virtual machine monitor: it emulates CPUs through dynamic binary translation and provides a set of device models, 
-        enabling it to run a variety of unmodified guest operating systems. 
-        It also can be used together with KVM in order to run virtual machines at near-native speed (requiring hardware virtualization extensions on x86 machines). 
-        QEMU can also do CPU emulation for user-level processes, allowing applications compiled for one architecture to run on another.</p>
+      <p class="w3-text-grey">Virtualization technology has been widely adopted to enable elastic IT infrastructure, with improved manageability and increased service reliability. 
+        Especially, virtualization technology could provide a unique benefit to protect any legacy application systems from hardware failures. 
+        The reliability of virtual machines running on virtualized servers is not only threatened by hardware failures beneath the whole virtual infrastructure, but also nosy hypervisors that essentially support virtual machines cannot be trusted. 
+        In this project, a virtualization- based fault tolerance mechanism using epoch-based (checkpoint- based) synchronization is proposed, and several performance optimization technologies are applied 
+        including a non- stop/pipelined, continuously migration, dirty tracking for guest virtual memory/virtual device status, and eliminate data transfer between QEMU and KVM. 
+        The experimental results show that these optimizations have greatly saved the processor usage, synchronization bandwidth and have significantly improved VM network throughput and latency at the same time.</p>
     </div>
 
     <div class="w3-third w3-center">

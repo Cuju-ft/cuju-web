@@ -27,23 +27,16 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+    <a href="home.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="download.html" class="w3-bar-item w3-button w3-padding-large">Download</a>
+    <a href="support.html" class="w3-bar-item w3-button w3-padding-large">Download</a>
   </div>
 </div>
-
-<!-- Header -->
-<header class="w3-container w3-light-blue w3-center" style="padding:128px 16px">
-  <h1 class="w3-margin w3-jumbo">Cuju</h1>
-  <p class="w3-xlarge">Open-Source FT Project by ITRI</p>
-  <button onclick="scrollWin(0, 470)" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Get Started</button>
-</header>
 
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
-    <div class="w3-twothird">
+    
       <h1>Cuju</h1>
       <h5 class="w3-padding-32">Cuju is a virtualization-based fault tolerance using epoch-based synchronization.</h5>
 
@@ -53,11 +46,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         In this project, a virtualization- based fault tolerance mechanism using epoch-based (checkpoint- based) synchronization is proposed, and several performance optimization technologies are applied 
         including a non- stop/pipelined, continuously migration, dirty tracking for guest virtual memory/virtual device status, and eliminate data transfer between QEMU and KVM. 
         The experimental results show that these optimizations have greatly saved the processor usage, synchronization bandwidth and have significantly improved VM network throughput and latency at the same time.</p>
-    </div>
-
-    <div class="w3-third w3-center">
-      <i class="fa fa-linux w3-padding-64 w3-text-black"></i>
-    </div>
   </div>
 </div>
 
@@ -68,6 +56,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <script>
 // Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
 function scrollWin(x, y) {
   window.scrollBy(x, y);
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>CUJU</title>
+<title>Support</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -38,9 +38,10 @@ a:hover {
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+    <a href="home.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="download.html" class="w3-bar-item w3-button w3-padding-large">Download</a>
+    <a href="support.html" class="w3-bar-item w3-button w3-padding-large">Support</a>
+    <a href="contact.html" class="w3-bar-item w3-button w3-padding-large">Contact</a>
   </div>
 </div>
 
@@ -133,3 +134,21 @@ a:hover {
       <a href="https://hackmd.io/OwFgbARsCGYAwFoQFMwBMkGZ4IBwQDNcEI4CAmOZAY2DQmVyA===?view" target="_blank">Experiment Results</a>
 </div>
 
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
+function scrollWin(x, y) {
+  window.scrollBy(x, y);
+}
+</script>
+
+</body>
+</html>

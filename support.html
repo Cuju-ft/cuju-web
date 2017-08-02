@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=desert&amp"></script>
 
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
@@ -51,52 +51,72 @@ a:hover {
   <div class="w3-content">
     <div class="w3-twothird">
       <h2>Cuju Quick Start Guide</h2>
-      
-      <ul>
-        <li> <a href="url"> All 3 nodes install Ubuntu-12.04.1 </a></li>
-        <li> <a href="url"> Add	no password	in	node 1&2 </a></li>
-        <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ sudo apt-get update</li>
-        <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ sudo apt-get	install	vim	gcc	make	gdb	fakeroot	build-essential	kernel-package	
-            libncurses5	libncurses5-dev	zlib1g-dev	libglib2.0-dev	qemu	xorg	bridge-utils	
-            openvpn	vncviewer</li>
-        <li>Install Linux Kernel 3.5.0(disable following items in menuconfig):</li>
-        <ul style="list-style-type:square">
-          <li style="color:lightslategray; font-style:oblique; font-weight:bold;">[         ]X86 PAT support (Processor type and features)</li>
-          <li style="color:lightslategray; font-style:oblique; font-weight:bold;">[         ]Filter access to /dev/mem (Kernel hacking)</li>
-        </ul>
-        <li>Set up iptable and network forwarding to allow all 3 nodes connecting to Internet.</li>
-        <li>Set up NFS.</li>
-        <li>Edit <span stype="color:lightslategray; font-style:oblique; font-weight:bold;">/etc/qemu-ifup</span>  &  /etc/qemu-ifdown in both node 1&2 as follow to avoid using it :</li>
-        <pre class="prettyprint linenums"> #!/bin/sh
- exit
- ...
-        </pre>
-        <li>Compile CUJU on all 3 nodes:</li>
-        <ul style="list-style-type:circle">
-          <li>QEMU</li>
-          <ul style="list-style-type:square">
-            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ cd $PATH_OF_YOUR_CUJU/</li>
-            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ ./configure --disable-pie --enable-kvm</li>
-            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ make clean</li>
-            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ make -j8/</li>
+
+        <h3>The environment prepare</h3>
+          <ul>
+            <li>Assume you have already builded 3 nodes (nfs, primary and backup node).</li>
+            <ul style="list-style-type:square">
+              <li style="color:lightslategray; font-style:oblique; font-weight:bold;">A proper topology like 
+                <a href="https://" target="_blank">this</a></li>
+            </ul>
+            <li>Open the Intel virtualization support (VT-x) in your bios.</li>
+            <li>Install OS: Ubuntu 16.04 LTS (Linux kernel 4.4.48)</li>
+            <li>Change your current Linux config</li>
+            <ul>
+              <li>Download Linux-4.4.48 source</li>
+            </ul>
+            <pre class="prettyprint"> $ cd linux-4.4.48
+ $ cp /boot/config-'uname -r' ./.config
+ $ make menuconfig
+
+ Disable following item:
+   Processor type and features
+     [ ] x86 PAT support
+   Kernel hacking
+     [ ] Filter access to /dev/mem
+            </pre>
+            <li>Install the NFS service (Network FileSystem) in nfs node, and create a NFS forder placing the VM image.</li>
+            <li>Primary and backup node mount the NFS forder from nfs node.</li>
+            <ul>
+              <li>In nfs node, go to your nfs forder, then download 
+                <a href="https://" target="_blank">Cuju</a>
+                and build a VM image file (Ubuntu-16.04 in our case), they will be synced with primary and backup node.</li>
+            </ul>
           </ul>
-          <li>KVM</li>
-          <ul style="list-style-type:square">
-            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ cd $PATH_OF_YOUR_CUJU/kvm</li>
-            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ ./configure</li>
-            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ make clean</li>
-            <li style="color:lightslategray; font-style:italic; font-weight:bold;">$ make -j8/</li>
+
+        <h3>Cuju Install</h3>
+          <ul>
+            <li>In primary node, go to your Cuju path</li>
+            <pre class="prettyprint"> $ ./configure --disable-pie --enable-kvm --enable-cuju
+   --target-list=x86_64-softmmu --enable-trace-backend=simple 
+ $ make clean
+ $ make
+ $ cd cuju-kvm-mod
+ $ ./configure
+ $ make clean
+ $ make
+            </pre>
           </ul>
-      </ul>
-    </div>
-    
-	<div class="w3-third w3-right">
-      <img src="topology.png" alt="Topology" style="width:150%">
+
+        <h3>Cuju Testing Steps</h3>
+          <ol>
+            <li>Download necessary scripts: 
+              <a href="https://" target="_blank">ft-scripts.tar.gz</a></li>
+            <ul>
+              <li>Uncompress to your work path</li>
+              <li>Seven scripts in it: pre.sh, reinsmodkvm.sh, set-net2.sh, set-vmft.sh, ftmode.sh, run_ft and recv</li>
+            </ul>
+            <li>Before you launch VM in any node, run pre.sh both in primary and backup node.</li>
+            <li>execute ./run_ft in primary node to boot the VM</li>
+            <li>execute ./recv in backup node to boot the backup VM</li>
+            <li>execute ./ftmode.sh in primary to enter FT mode</li>
+            <li>Remote to VM and ping 8.8.8.8 or any online server</li>
+            <li>Kill the VM in primary node</li>
+            <li>Check if the connection of VM and its ping action is still alive or not</li>
+          </ol>
     </div>
   </div>
 </div>
-
-
 
 <!-- Second Grid -->
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">

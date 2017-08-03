@@ -59,7 +59,7 @@ li {
         <h3>The environment prepare</h3>
 		<HR>
           <ul>
-            <li>Assume you have already builded 3 nodes (nfs, primary and backup node).</li>
+            <li>Assume you have already builded 3 nodes (NFS, primary and backup node).</li>
             <ul style="list-style-type:square">
               <li style="color:lightslategray; font-style:oblique; font-weight:bold;">A recommended topology
                 <a href="topology.png" target="_blank">below</a></li>
@@ -68,13 +68,11 @@ li {
 	
             </ul>
             <li>Open the Intel virtualization support (VT-x) in your bios.</li>
-            <li>Install OS: Ubuntu 16.04 LTS (Linux kernel 4.4.48)</li>
-            <li>Change your current Linux config</li>
-            <ul>
-              <li>Download Linux-4.4.48 source</li>
-            </ul>
-            <pre class="prettyprint"> $ cd linux-4.4.48
- $ cp /boot/config-'uname -r' ./.config
+            <li>Install OS: <a href="https://drive.google.com/file/d/0B9au9R9FzSWKUjRZclBXbXB0eEk/view">Ubuntu 16.04 LTS</a> </li>
+            <li>Download <a href="https://drive.google.com/file/d/0B9au9R9FzSWKWGxwa3pMXzhXZzQ/view">Linux-4.4 source </a></li>
+            <li>Go to your Linux-4.4 source forder and change the current Linux config</li>
+            
+            <pre class="prettyprint"> $ cp /boot/config-'uname -r' ./.config
  $ make menuconfig
 
  Disable following item:
@@ -83,7 +81,7 @@ li {
    Kernel hacking
      [ ] Filter access to /dev/mem
             </pre>
-			<li> Set Up the Bridge and network environment	</li>
+			<li> Set up the bridge and network environment	</li>
 				<ul><li> You can follow our recommended topology to set up the network environment </li></ul>
 				
 				<ul><li> The example of network interfaces set up below (edit your /etc/network/interfaces):</li></ul>
@@ -192,35 +190,9 @@ your username]/data</pre>
                 and build a VM image file (or download our <a href="https://drive.google.com/file/d/0B9au9R9FzSWKNjZpWUNlNDZLcEU/view?usp=sharing"> Ubuntu-16.04 VM image file</a>), they will be synced with Primary and Backup node.</li>
           </ul>
 
-        <h3>Cuju Install</h3>
+        <h3>Cuju Install and Set up</h3>
           <ul>
-            <li>In primary node, go to your Cuju path</li>
-            <pre class="prettyprint"> $ ./configure --disable-pie --enable-kvm --enable-cuju
-   --target-list=x86_64-softmmu --enable-trace-backend=simple 
- $ make clean
- $ make
- $ cd cuju-kvm-mod
- $ ./configure
- $ make clean
- $ make
-            </pre>
-          </ul>
-
-        <h3>Cuju Testing Steps</h3>
-          <ol>
-            <li>Download necessary scripts: 
-              <a href="https://" target="_blank">ft-scripts.tar.gz</a></li>
-            <ul>
-              <li>Uncompress to your work path</li>
-              <li>Seven scripts in it: pre.sh, reinsmodkvm.sh, set-net2.sh, set-vmft.sh, ftmode.sh, run_ft and recv</li>
-            </ul>
-            <li>Before you launch VM in any node, run pre.sh both in primary and backup node.</li>
-            <li>execute ./run_ft in primary node to boot the VM</li>
-            <li>execute ./recv in backup node to boot the backup VM</li>
-            <li>execute ./ftmode.sh in primary to enter FT mode</li>
-            <li>Remote to VM and ping 8.8.8.8 or any online server</li>
-            <li>Kill the VM in primary node</li>
-            <li>Check if the connection of VM and its ping action is still alive or not</li>
+            <li>See README.md on <a href="https://github.com/Cuju-ft/Cuju/blob/master/README.md"> GitHub </a></li>
           </ol>
     </div>
   </div>

@@ -8,7 +8,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=desert&amp"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?lang=css&skin=default"/>
+</script>
+
+<style>
+.post .prettyprint { 
+  overflow-x:auto; 
+  overflow-y:auto; 
+  max-height:400px;
+}
+
+</style>
 
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
@@ -72,20 +82,20 @@ li {
             <li>Download <a href="https://drive.google.com/file/d/0B9au9R9FzSWKWGxwa3pMXzhXZzQ/view">Linux-4.4 source </a>in Primary and Backup node</li>
             <li>Go to your Linux-4.4 source forder and change the current Linux config</li>
             
-            <pre class="prettyprint"> $ cp /boot/config-'uname -r' ./.config
+            <pre class="prettyprint" id="quine"><code> $ cp /boot/config-'uname -r' ./.config
  $ make menuconfig
 
  Disable following item:
    Processor type and features
      [ ] x86 PAT support
    Kernel hacking
-     [ ] Filter access to /dev/mem
+     [ ] Filter access to /dev/mem </code>
             </pre>
 			<li> Set up the bridge and network environment	</li>
 				<ul><li> You can follow our recommended topology to set up the network environment </li></ul>
 				
 				<ul><li> The example of network interfaces set up below (edit your /etc/network/interfaces):</li></ul>
-				<pre class="prettyprint linenums">#NFS node
+				<pre class="prettyprint linenums"><code>#NFS node
 auto lo
 iface lo inet loopback
 
@@ -100,10 +110,10 @@ auto eth1
 iface eth1 inet static
 address 192.168.11.1
 netmask 255.255.255.0
-dns-nameservers 8.8.8.8
+dns-nameservers 8.8.8.8 </code>
 				</pre>
 				
-				<pre class="prettyprint linenums">#Primary node
+				<pre class="prettyprint linenums"><code>#Primary node
 auto lo
 iface lo inet loopback
 
@@ -123,10 +133,10 @@ address 0.0.0.0
 auto eth1
 iface eth1 inet static
 address 192.168.111.1
-netmask 255.255.255.0
+netmask 255.255.255.0 </code>
 				</pre>
 
-				<pre class="prettyprint linenums">#Backup node
+				<pre class="prettyprint linenums"> <code>#Backup node
 auto lo
 iface lo inet loopback
 
@@ -146,7 +156,7 @@ address 0.0.0.0
 auto eth1
 iface eth1 inet static
 address 192.168.111.2
-netmask 255.255.255.0
+netmask 255.255.255.0 </code>
 				</pre>
 
 				<ul><li>Build the high-speed connections with Primary and Backup nodes by the eth1</li></ul>
@@ -156,15 +166,14 @@ netmask 255.255.255.0
 			<li>Set up forwarding and iptable in NFS node</li>
 
 <ul><li>
-<pre class="prettyprint"> $ sudo echo "1" > /proc/sys/net/ipv4/ip_forward</pre>
+<pre class="prettyprint"> <code>$ sudo echo "1" > /proc/sys/net/ipv4/ip_forward </code></pre>
 </li></ul>
 
 
 				<ul><li>NFS node: eth0 as outside interface; eth1 as inside interface</li></ul>
 							
 <ul><li>
-<pre class="prettyprint"> $ iptables -t nat -A POSTROUTING -o eth0 -s 192.168.11.0/24 -j 
-MASQUERADE</pre>
+<pre class="prettyprint" id="quine">$ iptables -t nat -A POSTROUTING -o eth0 -s 192.168.11.0/24 -j MASQUERADE</pre>
 </li></ul>
 
 		

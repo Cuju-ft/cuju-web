@@ -9,10 +9,21 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+body,h1,h2,h3,h4,h5,h6 {
+font-family: "Lato", sans-serif;
+text-align: justify;
+text-justify: inter-ideograph;
+
+}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-linux {font-size:200px}
+
 </style>
+
+
+
+
+
 <body>
 
 <!-- Navbar -->
@@ -37,24 +48,28 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
+    <div class="w3-twothird">
     
       <h1>Cuju</h1>
-      <h5 class="w3-padding-32">Cuju is a virtualization-based fault tolerance using epoch-based synchronization.</h5>
+	  <HR>
+      <h5 class="w3-padding-32">An Open Source Project for Virtualization-Based Fault Tolerance</h5>
 
-      <p class="w3-text-grey">Virtualization technology has been widely adopted to enable elastic IT infrastructure, with improved manageability and increased service reliability. 
-        Especially, virtualization technology could provide a unique benefit to protect any legacy application systems from hardware failures. 
-        The reliability of virtual machines running on virtualized servers is not only threatened by hardware failures beneath the whole virtual infrastructure, but also nosy hypervisors that essentially support virtual machines cannot be trusted. 
-        In this project, a virtualization- based fault tolerance mechanism using epoch-based (checkpoint- based) synchronization is proposed, and several performance optimization technologies are applied 
-        including a non- stop/pipelined, continuously migration, dirty tracking for guest virtual memory/virtual device status, and eliminate data transfer between QEMU and KVM. 
-        The experimental results show that these optimizations have greatly saved the processor usage, synchronization bandwidth and have significantly improved VM network throughput and latency at the same time.</p>
+      <p class="w3-text-grey">
+
+&emsp; Virtualization technology has been widely adopted to enable elastic IT infrastructure, with improved manageability and increased service reliability. Especially, virtualization technology could provide a unique benefit to protect any legacy application systems from hardware failures. The reliability of virtual machines running on virtualized servers is not only threatened by hardware failures beneath the whole virtual infrastructure, but also nosy hypervisors that essentially support virtual machines cannot be trusted. </p>
+
+      <p class="w3-text-grey">
+&emsp; In this project, a virtualization- based fault tolerance mechanism using epoch-based (checkpoint- based) synchronization is proposed, named Cuju, and several performance optimization technologies are applied, including a non- stop/pipelined, continuously migration, dirty tracking for guest virtual memory/virtual device status, and eliminate data transfer between QEMU and KVM.
+
+
+
+</p>
+
+<img border=0 src="intro.png" width="100%" title="Cuju" >
+  </div>
   </div>
 </div>
 
-<div style="text-align:center">
-
-<img border=0 src="intro.png" width="800" title="Cuju" >
-
-</div>
 
 
 <script>

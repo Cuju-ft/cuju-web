@@ -22,6 +22,10 @@ a:hover {
     color: dimgray;
     background-color: transparent;
 }
+li { 
+    line-height: 32px;　　　          　/* 設定文字行距 */
+} 
+
 </style>
 
 <body>
@@ -50,14 +54,18 @@ a:hover {
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
-      <h2>Cuju Quick Start Guide</h2>
-
+      <h2>Cuju Start Guide</h2>
+		<HR>
         <h3>The environment prepare</h3>
+		<HR>
           <ul>
             <li>Assume you have already builded 3 nodes (nfs, primary and backup node).</li>
             <ul style="list-style-type:square">
-              <li style="color:lightslategray; font-style:oblique; font-weight:bold;">A proper topology like 
-                <a href="https://" target="_blank">this</a></li>
+              <li style="color:lightslategray; font-style:oblique; font-weight:bold;">A recommended topology
+                <a href="topology.png" target="_blank">below</a></li>
+
+				<img border=0 src="topology.png" width="100%" title="Cuju topology" id="Img3">
+	
             </ul>
             <li>Open the Intel virtualization support (VT-x) in your bios.</li>
             <li>Install OS: Ubuntu 16.04 LTS (Linux kernel 4.4.48)</li>
@@ -75,13 +83,113 @@ a:hover {
    Kernel hacking
      [ ] Filter access to /dev/mem
             </pre>
-            <li>Install the NFS service (Network FileSystem) in nfs node, and create a NFS forder placing the VM image.</li>
-            <li>Primary and backup node mount the NFS forder from nfs node.</li>
-            <ul>
-              <li>In nfs node, go to your nfs forder, then download 
+			<li> Set Up the Bridge and network environment	</li>
+				<ul><li> You can follow our recommended topology to set up the network environment </li></ul>
+				
+				<ul><li> The example of network interfaces set up below (edit your /etc/network/interfaces):</li></ul>
+				<pre class="prettyprint linenums">#NFS node
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 10.1.10.10
+netmask 255.255.255.0
+gateway 10.1.10.254
+dns-nameservers 8.8.8.8
+
+auto eth1
+iface eth1 inet static
+address 192.168.11.1
+netmask 255.255.255.0
+dns-nameservers 8.8.8.8
+				</pre>
+				
+				<pre class="prettyprint linenums">#Primary node
+auto lo
+iface lo inet loopback
+
+auto br0
+iface br0 inet static
+bridge_ports eth0
+bridge_maxwait 0
+address 192.168.11.2
+netmask 255.255.255.0
+gateway 192.168.11.1
+dns-nameservers 8.8.8.8
+
+auto eth0
+iface eth0 inet static
+address 0.0.0.0
+
+auto eth1
+iface eth1 inet static
+address 192.168.111.1
+netmask 255.255.255.0
+				</pre>
+
+				<pre class="prettyprint linenums">#Backup node
+auto lo
+iface lo inet loopback
+
+auto br0
+iface br0 inet static
+bridge_ports eth0
+bridge_maxwait 0
+address 192.168.11.3
+netmask 255.255.255.0
+gateway 192.168.11.1
+dns-nameservers 8.8.8.8
+
+auto eth0
+iface eth0 inet static
+address 0.0.0.0
+
+auto eth1
+iface eth1 inet static
+address 192.168.111.2
+netmask 255.255.255.0
+				</pre>
+
+				<ul><li>Build the high-speed connections with Primary and Backup nodes by the eth1</li></ul>
+				<ul><li>After editing these network interfaces, type "/etc/init.d/networking restart" or reboot</li></ul>
+				
+
+			<li>Set up forwarding and iptable in NFS node</li>
+
+<ul><li>
+<pre class="prettyprint"> $ sudo echo "1" > /proc/sys/net/ipv4/ip_forward</pre>
+</li></ul>
+
+
+				<ul><li>NFS node: eth0 as outside interface; eth1 as inside interface</li></ul>
+							
+<ul><li>
+<pre class="prettyprint"> $ iptables -t nat -A POSTROUTING -o eth0 -s 192.168.11.0/24 -j 
+MASQUERADE</pre>
+</li></ul>
+
+		
+			
+
+            <li>Install the NFS service (Network FileSystem) in NFS node; then create a NFS forder placing the VM image</li>
+			
+            <pre class="prettyprint"> $ sudo apt-get install nfs-kernel-server</pre>
+				<ul><li>Insert this line in "/etc/exports" to add your NFS forder: </li></ul>
+			<pre class="prettyprint"> /home/[your username]/nfsfolder *(rw,no_root_squash,no_subtree_chec
+k) </pre>
+
+            <li>Install the NFS client in Primary and Backup nodes; then mount the NFS forder</li>
+			
+			<pre class="prettyprint"> $ apt-get install nfs-common
+ $ mount -t nfs 192.168.11.1:/home/[your username]/nfsfolder /home/[
+your username]/data</pre>
+			
+			
+
+              <li>In NFS node, go to your nfs forder, then download 
                 <a href="https://" target="_blank">Cuju</a>
-                and build a VM image file (Ubuntu-16.04 in our case), they will be synced with primary and backup node.</li>
-            </ul>
+                and build a VM image file (or download our <a href="https://drive.google.com/file/d/0B9au9R9FzSWKNjZpWUNlNDZLcEU/view?usp=sharing"> Ubuntu-16.04 VM image file</a>), they will be synced with Primary and Backup node.</li>
           </ul>
 
         <h3>Cuju Install</h3>
@@ -127,9 +235,6 @@ a:hover {
 
     <div class="w3-twothird">
       <h2>Documents</h2>
-      <ul>
-        <li> <h4><a href="url">Developer Guide </a></h4></li>
-	  </ul>
       <ul>
         <li> <h4>Papers </h4></li>
         	<ul style="list-style-type:square">

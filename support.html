@@ -170,14 +170,12 @@ netmask 255.255.255.0 </code>
 			
             <pre class="prettyprint"> $ sudo apt-get install nfs-kernel-server</pre>
 				<ul><li>Insert this line in "/etc/exports" to add your NFS forder: </li></ul>
-			<pre class="prettyprint"> /home/[your username]/nfsfolder *(rw,no_root_squash,no_subtree_chec
-k) </pre>
+			<pre class="prettyprint"> /home/[your username]/nfsfolder *(rw,no_root_squash,no_subtree_check) </pre>
 
             <li>Install the NFS client in Primary and Backup nodes; then mount the NFS forder</li>
 			
 			<pre class="prettyprint"> $ apt-get install nfs-common
- $ mount -t nfs 192.168.11.1:/home/[your username]/nfsfolder /home/[
-your username]/data</pre>
+ $ mount -t nfs 192.168.11.1:/home/[your username]/nfsfolder /home/[your username]/data</pre>
 			
 			
 

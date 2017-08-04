@@ -72,7 +72,7 @@ li {
             <li>Assume you have already builded Primary, Backup and NFS node</li>
             <ul style="list-style-type:square">
               <li style="color:lightslategray; font-style:oblique; font-weight:bold;">A recommended topology
-                <a href="topology.png" target="_blank">below</a></li>
+                <a href="topology.png" target="_blank">below</a>:</li>
 
 				<img border=0 src="topology.png" width="100%" title="Cuju topology" id="Img3">
 	
@@ -170,12 +170,14 @@ netmask 255.255.255.0 </code>
 			
             <pre class="prettyprint"> $ sudo apt-get install nfs-kernel-server</pre>
 				<ul><li>Insert this line in "/etc/exports" to add your NFS forder: </li></ul>
-			<pre class="prettyprint"> /home/[your username]/nfsfolder *(rw,no_root_squash,no_subtree_check) </pre>
+			<pre class="prettyprint"> /home/[your username]/nfsfolder *(rw,no_root_squash,no_subtree_c
+heck) </pre>
 
             <li>Install the NFS client in Primary and Backup nodes; then mount the NFS forder</li>
 			
 			<pre class="prettyprint"> $ apt-get install nfs-common
- $ mount -t nfs 192.168.11.1:/home/[your username]/nfsfolder /home/[your username]/data</pre>
+ $ mount -t nfs 192.168.11.1:/home/[your username]/nfsfolder /home
+/[your username]/data</pre>
 			
 			
 

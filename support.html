@@ -163,19 +163,6 @@ netmask 255.255.255.0 </code>
 				<ul><li>After editing these network interfaces, type "/etc/init.d/networking restart" or reboot</li></ul>
 				
 
-			<li>Set up forwarding and iptable in NFS node</li>
-
-<ul><li>
-<pre class="prettyprint"> <code>$ sudo echo "1" > /proc/sys/net/ipv4/ip_forward </code></pre>
-</li></ul>
-
-
-				<ul><li>NFS node: eth0 as outside interface; eth1 as inside interface</li></ul>
-							
-<ul><li>
-<pre class="prettyprint" id="quine">$ iptables -t nat -A POSTROUTING -o eth0 -s 192.168.11.0/24 -j MASQUERADE</pre>
-</li></ul>
-
 		
 			
 
@@ -197,7 +184,52 @@ your username]/data</pre>
               <li>In NFS node, go to your nfs forder, then download 
                 <a href="https://" target="_blank">Cuju</a>
                 and build a VM image file (or download our <a href="https://drive.google.com/file/d/0B9au9R9FzSWKNjZpWUNlNDZLcEU/view?usp=sharing"> Ubuntu-16.04 VM image file</a>), they will be synced with Primary and Backup node.</li>
-          </ul>
+         
+
+
+
+
+
+
+ 
+<li>Before launching your VM, you should prepare these scripts below in Primary and Backup nodes: </li>
+				
+<ul><li>pre.sh </li></ul>
+<pre class="prettyprint linenums">#!/bin/sh
+WORKSPACE=/your_work_path/data
+
+sudo $WORKSPACE/set-net.sh
+sudo $WORKSPACE/set-vmft.sh
+</pre>
+
+<ul><li>set-net.sh</li></ul>
+
+
+<pre class="prettyprint linenums">#!/bin/sh
+/usr/sbin/openvpn --mktun --dev tap0 --user `id -un`
+#ip tuntap add tap0 mode tap
+ifconfig tap0 promisc up
+brctl addif br0 tap0
+</pre>
+
+
+
+<ul><li>set-vmft.sh</li></ul>
+
+
+<pre class="prettyprint linenums">#!/bin/sh
+mkdir /dev/cgroup
+mount -t cgroup -o cpuset cpuset /dev/cgroup/
+mkdir /dev/cgroup/vmft/
+echo 7 > /dev/cgroup/vmft/cpuset.cpus
+echo 1 > /dev/cgroup/vmft/cpuset.cpu_exclusive
+echo 0 > /dev/cgroup/vmft/cpuset.mems
+</pre>
+
+
+<li>Execute "pre.sh" before launching VM in Primary and Backup nodes </li>
+
+</ul>
 
         <h3>Cuju Install and Set up</h3>
           <ul>

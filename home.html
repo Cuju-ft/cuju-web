@@ -32,7 +32,7 @@ text-justify: inter-ideograph;
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="home.html" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
     <a href="support.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Documents</a>
-    <a href="contact.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contribute</a>
+<!--    <a href="contact.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contribute</a> -->
     <a href="https://github.com/Cuju-ft/Cuju" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Source</a>
   </div>
 
@@ -40,7 +40,7 @@ text-justify: inter-ideograph;
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
     <a href="home.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
     <a href="support.html" class="w3-bar-item w3-button w3-padding-large">Documents</a>
-    <a href="contact.html" class="w3-bar-item w3-button w3-padding-large">Contribute</a>
+<!--    <a href="contact.html" class="w3-bar-item w3-button w3-padding-large">Contribute</a> -->
     <a href="https://github.com/Cuju-ft/Cuju" class="w3-bar-item w3-button w3-padding-large">Source</a>
   </div>
 </div>
@@ -87,6 +87,105 @@ function scrollWin(x, y) {
   window.scrollBy(x, y);
 }
 </script>
+
+
+
+<style>
+#Img3{
+    opacity: 1.0; 
+    filter: alpha(opacity=100);
+}
+#Img3:hover{
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+</style>
+
+
+
+
+<!-- Header -->
+<header class="w3-container w3-light-blue w3-center" style="padding:80px 16px">
+  <div class="w3-xlarge w3-padding-32">
+<a href="https://github.com/Cuju-ft/Cuju"><i class="fa fa-github fa-6" style="font-size:60px" aria-hidden="true"></i></a>
+</div>
+<a href="https://github.com/Cuju-ft/Cuju"> GitHub Source </a>
+  
+</header>
+
+
+
+<!-- Second Grid -->
+
+
+<div class="w3-container w3-center w3-black w3-opacity w3-padding-64">
+      <a href="https://hackmd.io/BwBlFMDMBYGYFoCMBWSB2e1EEMCc9ttoAjeAE0hEoDYzhoRxog==?both"><i class="fa fa-list-ol"  style="font-size:60px;"></i></a>
+      <br>
+      <a href="https://hackmd.io/BwBlFMDMBYGYFoCMBWSB2e1EEMCc9ttoAjeAE0hEoDYzhoRxog==?both" >TODO list
+</a>
+</div>
+
+
+<!-- Header -->
+<header class="w3-container w3-light-blue w3-center" style="padding:80px 16px">
+  <div class="w3-xlarge w3-padding-32">
+<a href="mailto:cuju.ft@gmail.com"> <i class="fa fa-users" aria-hidden="true" style="font-size:60px"></i>
+  </div>
+Contribute to Cuju or any questions 
+ <p>Contact us</p> </a>
+  
+</header>
+
+
+<head> 
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+<div class="comments">
+<div id="disqus_thread"></div>
+
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+var disqus_config = function () {
+this.page.url = 'https://cuju-ft.github.io/cuju-web/contact.html';  // Replace PAGE_URL with your page's canonical URL variable
+//this.page.identifier = '0'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://cuju.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//cuju.disqus.com/count.js" async></script>
+
+</div>
+
+</head>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+function scrollWin(x, y) {
+  window.scrollBy(x, y);
+}
+</script>
+
+
+
+
+
+
+
 
 
 

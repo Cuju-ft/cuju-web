@@ -198,6 +198,7 @@ heck) </pre>
 <pre class="prettyprint linenums">#!/bin/sh
 WORKSPACE=/your_work_path/data
 
+sudo $WORKSPACE/reinsmodkvm.sh
 sudo $WORKSPACE/set-net.sh
 sudo $WORKSPACE/set-vmft.sh
 </pre>
@@ -213,10 +214,19 @@ brctl addif br0 tap0
 </pre>
 
 
+<ul><li>reinsmodkvm.sh</li></ul>
+<pre class="prettyprint linenums">#!/bin/sh
+cd /your_work_path/Cuju/kvm
+lsmod | grep kvm
+sudo rmmod kvm_intel
+sudo rmmod kvm
+sudo insmod ./x86/kvm.ko
+sudo insmod ./x86/kvm-intel.ko
+lsmod | grep kvm
+</pre>
+
 
 <ul><li>set-vmft.sh</li></ul>
-
-
 <pre class="prettyprint linenums">#!/bin/sh
 mkdir /dev/cgroup
 mount -t cgroup -o cpuset cpuset /dev/cgroup/

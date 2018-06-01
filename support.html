@@ -91,7 +91,8 @@ libssl-dev libpixman-1-dev
             <li>Download <a href="https://drive.google.com/file/d/0B9au9R9FzSWKWGxwa3pMXzhXZzQ/view">Linux-4.4 source </a>in Primary and Backup node</li>
             <li>Go to your Linux-4.4 source forder and change the current Linux config</li>
             
-            <pre class="prettyprint" id="quine"><code> $ cp /boot/config-`uname -r` ./.config
+            <pre class="prettyprint" id="quine"><code> $ cd linux-source-4.4.0
+ $ cp /boot/config-`uname -r` ./.config
  $ make menuconfig
 
  Disable following item:
@@ -100,6 +101,14 @@ libssl-dev libpixman-1-dev
    Kernel hacking
      [ ] Filter access to /dev/mem </code>
             </pre>
+			<li> Compile and install kernel </li>
+            <pre class="prettyprint" id="quine"><code> $ make-kpkg clean
+ $ fakeroot make-kpkg --initrd kernel_image kernel_headers -j7
+ $ cd ~
+ $ sudo dpkg -i linux-image-4.4.35_4.4.35-10.00.Custom_amd64.deb
+ $ sudo dpkg -i linux-headers-4.4.35_4.4.35-10.00.Custom_amd64.deb </code>
+			</pre>
+
 			<li> Set up the bridge and network environment	</li>
 				<ul><li> You can follow our recommended topology to set up the network environment </li></ul>
 				

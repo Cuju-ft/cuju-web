@@ -125,15 +125,9 @@ iface lo inet loopback
 
 auto eth0
 iface eth0 inet static
-address 10.1.10.10
-netmask 255.255.255.0
-gateway 10.1.10.254
-dns-nameservers 8.8.8.8
-
-auto eth1
-iface eth1 inet static
 address 192.168.11.1
 netmask 255.255.255.0
+gateway 192.168.11.254
 dns-nameservers 8.8.8.8 </code>
 				</pre>
 				
@@ -147,7 +141,7 @@ bridge_ports eth0
 bridge_maxwait 0
 address 192.168.11.2
 netmask 255.255.255.0
-gateway 192.168.11.1
+gateway 192.168.11.254
 dns-nameservers 8.8.8.8
 
 auto eth0
@@ -170,7 +164,7 @@ bridge_ports eth0
 bridge_maxwait 0
 address 192.168.11.3
 netmask 255.255.255.0
-gateway 192.168.11.1
+gateway 192.168.11.254
 dns-nameservers 8.8.8.8
 
 auto eth0
@@ -195,7 +189,7 @@ netmask 255.255.255.0 </code>
             <pre class="prettyprint"> $ sudo apt-get install nfs-kernel-server</pre>
 				<ul><li>Insert this line in "/etc/exports" to add your NFS forder: </li></ul>
 			<pre class="prettyprint"> /home/[your username]/nfsfolder *(rw,no_root_squash,no_subtree_check) </pre>
-
+				<ul><li>After editing /etc/exports, type "/etc/init.d/nfs-kernel-server restart" or reboot</li></ul>
             <li>Install the NFS client in Primary and Backup nodes; then mount the NFS forder</li>
 			
 			<pre class="prettyprint"> $ apt-get install nfs-common
@@ -204,7 +198,7 @@ netmask 255.255.255.0 </code>
 			
 
               <li>In NFS node, go to your nfs forder, then download 
-                <a href="https://" target="_blank">Cuju</a>
+                <a href="https://github.com/Cuju-ft/Cuju" target="_blank">Cuju</a>
                 and build a VM image file (or download our <a href="https://drive.google.com/file/d/0B9au9R9FzSWKNjZpWUNlNDZLcEU/view?usp=sharing"> Ubuntu-16.04 VM image file</a>, the account/password is root/root), they will be synced with Primary and Backup node.</li>
          
 
@@ -263,7 +257,7 @@ echo 0 > /dev/cgroup/vmft/cpuset.mems
 
 </ul>
 
-        <h3>Cuju Install and Execute</h3>
+        <h3>Cuju Compile and Execute</h3>
           <ul>
             <li>See README.md on <a href="https://github.com/Cuju-ft/Cuju/blob/master/README.md"> GitHub </a></li>
           </ol>

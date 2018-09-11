@@ -114,6 +114,7 @@ libssl-dev libpixman-1-dev
  $ sudo dpkg -i linux-image-4.4.35_4.4.35-10.00.Custom_amd64.deb
  $ sudo dpkg -i linux-headers-4.4.35_4.4.35-10.00.Custom_amd64.deb </code>
 			</pre>
+After install kernel, reboot machine and use kernel 4.4.35 
 
 			<li> Set up the bridge and network environment	</li>
 				<ul><li> You can follow our recommended topology to set up the network environment </li></ul>
@@ -236,6 +237,7 @@ cd /your_work_path/Cuju/kvm
 lsmod | grep kvm
 sudo rmmod kvm_intel
 sudo rmmod kvm
+sudo modprobe irqbypass
 sudo insmod ./x86/kvm.ko
 sudo insmod ./x86/kvm-intel.ko
 lsmod | grep kvm

@@ -83,6 +83,15 @@ li {
 				<img border=0 src="topology.png" width="100%" title="Cuju topology" id="Img3">
 	
             </ul>
+         <ul>
+            <li>If you only have one or two machine, you can reference this setting</li>
+            <ul style="list-style-type:square">
+              <li style="color:lightslategray; font-style:oblique; font-weight:bold;">Another recommended topology
+                <a href="topology2.png" target="_blank">below</a>:</li>
+
+                <img border=0 src="topology2.png" width="100%" title="Cuju topology" id="Img3">
+
+            </ul>
             <li>Open the Intel virtualization support (VT-x) in your bios.</li>
             <li>Install OS in all nodes: <a href="https://drive.google.com/file/d/0B9au9R9FzSWKUjRZclBXbXB0eEk/view">Ubuntu-16.04-desktop-amd64.iso</a> </li>
 			<li> Install related packages in all nodes</li>
@@ -90,31 +99,9 @@ li {
  $ sudo apt-get install vim gcc make gdb fakeroot build-essential \
 kernel-package libncurses5 libncurses5-dev zlib1g-dev \
 libglib2.0-dev qemu xorg bridge-utils openvpn vncviewer \
-libssl-dev libpixman-1-dev
+libssl-dev libpixman-1-dev nfs-common
 
 			</pre>
-
-            <li>Download <a href="https://drive.google.com/file/d/0B9au9R9FzSWKWGxwa3pMXzhXZzQ/view">Linux-4.4 source </a>in Primary and Backup node</li>
-            <li>Go to your Linux-4.4 source forder and change the current Linux config</li>
-            
-            <pre class="prettyprint" id="quine"><code> $ cd linux-source-4.4.0
- $ cp /boot/config-`uname -r` ./.config
- $ make menuconfig
-
- Disable following item:
-   Processor type and features
-     [ ] x86 PAT support
-   Kernel hacking
-     [ ] Filter access to /dev/mem </code>
-            </pre>
-			<li> Compile and install kernel </li>
-            <pre class="prettyprint" id="quine"><code> $ make-kpkg clean
- $ fakeroot make-kpkg --initrd kernel_image kernel_headers -j7
- $ cd ..
- $ sudo dpkg -i linux-image-4.4.35_4.4.35-10.00.Custom_amd64.deb
- $ sudo dpkg -i linux-headers-4.4.35_4.4.35-10.00.Custom_amd64.deb </code>
-			</pre>
-After install kernel, reboot machine and use kernel 4.4.35 
 
 			<li> Set up the bridge and network environment	</li>
 				<ul><li> You can follow our recommended topology to set up the network environment </li></ul>
@@ -180,10 +167,6 @@ netmask 255.255.255.0 </code>
 
 				<ul><li>Build the high-speed connections with Primary and Backup nodes by the eth1</li></ul>
 				<ul><li>After editing these network interfaces, type "/etc/init.d/networking restart" or reboot</li></ul>
-				
-
-		
-			
 
             <li>Install the NFS service (Network FileSystem) in NFS node; then create a NFS forder placing the VM image</li>
 			
@@ -195,42 +178,15 @@ netmask 255.255.255.0 </code>
 			
 			<pre class="prettyprint"> $ apt-get install nfs-common
  $ mount -t nfs 192.168.11.1:/home/[your username]/nfsfolder /home/[your username]/data</pre>
-			
-			
-
+				
               <li>In NFS node, go to your nfs forder, then download 
                 <a href="https://github.com/Cuju-ft/Cuju" target="_blank">Cuju</a>
-                and build a VM image file (or download our <a href="https://drive.google.com/file/d/0B9au9R9FzSWKNjZpWUNlNDZLcEU/view?usp=sharing"> Ubuntu-16.04 VM image file</a>, the account/password is root/root), they will be synced with Primary and Backup node.</li>
+                and build a VM image file (or download our <a href="https://drive.google.com/file/d/1JQrJRw48nC8OJqFIwa6AU9eDBeYGQ39j/view?usp=sharing"> Ubuntu-16.04 VM image file</a>, the account/password is root/root), they will be synced with Primary and Backup node.</li>
          
 
-
-
-
-
-
  
-<li>Before launching your VM, you should prepare these scripts below in Primary and Backup nodes: </li>
+<li>Before launching your VM, you should update kvm module in Primary and Backup nodes: </li>
 				
-<ul><li>pre.sh </li></ul>
-<pre class="prettyprint linenums">#!/bin/sh
-WORKSPACE=/your_work_path/data
-
-sudo $WORKSPACE/reinsmodkvm.sh
-sudo $WORKSPACE/set-net.sh
-sudo $WORKSPACE/set-vmft.sh
-</pre>
-
-<ul><li>set-net.sh</li></ul>
-
-
-<pre class="prettyprint linenums">#!/bin/sh
-/usr/sbin/openvpn --mktun --dev tap0 --user `id -un`
-#ip tuntap add tap0 mode tap
-ifconfig tap0 promisc up
-brctl addif br0 tap0
-</pre>
-
-
 <ul><li>reinsmodkvm.sh</li></ul>
 <pre class="prettyprint linenums">#!/bin/sh
 cd /your_work_path/Cuju/kvm
@@ -243,19 +199,7 @@ sudo insmod ./x86/kvm-intel.ko
 lsmod | grep kvm
 </pre>
 
-
-<ul><li>set-vmft.sh</li></ul>
-<pre class="prettyprint linenums">#!/bin/sh
-mkdir /dev/cgroup
-mount -t cgroup -o cpuset cpuset /dev/cgroup/
-mkdir /dev/cgroup/vmft/
-echo 7 > /dev/cgroup/vmft/cpuset.cpus
-echo 1 > /dev/cgroup/vmft/cpuset.cpu_exclusive
-echo 0 > /dev/cgroup/vmft/cpuset.mems
-</pre>
-
-
-<li>Execute "pre.sh" before launching VM in Primary and Backup nodes </li>
+<li>Execute "reinsmodkvm.sh" before launching VM in Primary and Backup nodes </li>
 
 </ul>
 
